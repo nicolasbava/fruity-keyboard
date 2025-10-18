@@ -1,6 +1,6 @@
-import threading
-import time
-import sys
+# import threading
+# import time
+# import sys
 
 import pygame
 import mido
@@ -10,6 +10,19 @@ MIDI_PORT_NAME = 'port1 1'
 DEFAULT_VELOCITY = 100
 PITCH_BEND_RANGE = 8192
 ARP_INTERVAL = 0.2
+
+# def keep_pygame_on_top():
+#     if sys.platform.startswith('win'):
+#         import ctypes
+#         hwnd = pygame.display.get_wm_info()['window']
+#         while running:
+#             ctypes.windll.user32.SetWindowPos(hwnd, -1, 0, 0, 0, 0,
+#                                               0x0001 | 0x0002)
+#             time.sleep(1)  # Actualiza cada 1 segundo
+#     elif sys.platform.startswith('linux') or sys.platform.startswith('darwin'):
+#         # Opcional: esto se puede hacer con wmctrl o Tkinter si querés soporte cross-platform real
+#         print("El modo persistente 'always on top' solo está activo en Windows por ahora.")
+
 
 SCALES = {
     'major': [0, 2, 4, 5, 7, 9, 11],
@@ -57,7 +70,7 @@ except IOError:
     exit(1)
 
 pygame.init()
-screen = pygame.display.set_mode((600, 300))
+screen = pygame.display.set_mode((300, 300))
 pygame.display.set_caption("Super Piano para Ableton")
 font = pygame.font.SysFont("Arial", 20)
 
@@ -107,6 +120,7 @@ def stop_chord(note):
             active_notes.remove(note + interval)
 
 running = True
+# threading.Thread(target=keep_pygame_on_top, daemon=True).start()
 
 while running:
     draw_ui()
